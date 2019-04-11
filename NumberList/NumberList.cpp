@@ -101,7 +101,7 @@ void NumberList::insertNode(int num)
 		// If the new node is to be the 1st in the list,
 		// insert it before all other nodes.
 		if (previousNode == nullptr)
-		
+		{
 			head = newNode;
 			newNode->next = nodePtr;
 		}

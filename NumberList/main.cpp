@@ -6,25 +6,27 @@ using namespace std;
 int main()
 {
 	NumberList list;
+	int temp;
 
 	ifstream intFile;
-	intFile.open("Integ;erList.txt");
+	intFile.open("IntegerList.txt");
 
-	for (int i = 0; i < 5; i++)
+	// Task 3 Code to read from file and add to the list
+	while (intFile >> temp)
 	{
-		while (intFile >> list.insertNode(i))
-		{
+		list.insertNode(temp);
+	}	
 
-		}
-	}
-	
+	list.displayList();
+	intFile.close();
 
-	list.insertNode(10);
+	// Task 1 Code to add to the list
+	/*list.insertNode(10);
 	list.appendNode(40);
 	list.insertNode(30);
 	list.insertNode(25);
 	list.deleteNode(30);
-	list.displayList();
+	list.displayList();*/
 
 	 
 	return 0;

@@ -13,7 +13,7 @@ void NumberList::appendNode(int num)
 	ListNode *newNode;  // To point to a new node
 	ListNode *nodePtr;  // To move through the list
 
-						// Allocate a new node and store num there.
+	// Allocate a new node and store num there.
 	newNode = new ListNode;
 	newNode->value = num;
 	newNode->next = nullptr;
@@ -21,18 +21,34 @@ void NumberList::appendNode(int num)
 	// If there are no nodes in the list
 	// make newNode the first node.
 	if (!head)
+	{
 		head = newNode;
+		tail = newNode;
+	}
 	else  // Otherwise, insert newNode at end.
 	{
-		// Initialize nodePtr to head of list.
-		nodePtr = head;
+		// Initialize nodePtr to end of list.
+		nodePtr = tail;
 
 		// Find the last node in the list.
-		while (nodePtr->next)
-			nodePtr = nodePtr->next;
+			// don't need this with tail pointer
+		/*while (nodePtr->next)
+			nodePtr = nodePtr->next;*/
 
 		// Insert newNode as the last node.
 		nodePtr->next = newNode;
+		tail = newNode;
+		/*if (tail == nullptr)
+		{
+			nodePtr = head;
+			while (nodePtr->next)
+			{
+				nodePtr = nodePtr->next;
+			}
+
+			tail = nodePtr;
+		}
+		tail->next = newNode;*/
 	}
 }
 
@@ -46,7 +62,7 @@ void NumberList::displayList() const
 {
 	ListNode *nodePtr;  // To move through the list
 
-						// Position nodePtr at the head of the list.
+	// Position nodePtr at the head of the list.
 	nodePtr = head;
 
 	// While nodePtr points to a node, traverse
@@ -148,6 +164,11 @@ void NumberList::deleteNode(int num)
 			nodePtr = nodePtr->next;
 		}
 
+		if (tail->value == num)
+		{
+			tail = previousNode;
+		}
+
 		// If nodePtr is not at the end of the list, 
 		// link the previous node to the node after
 		// nodePtr, then delete nodePtr.
@@ -185,3 +206,50 @@ NumberList::~NumberList()
 		nodePtr = nextNode;
 	}
 }
+
+// copy constructor
+NumberList::NumberList(const NumberList& other)
+{
+	ListNode* listptr;
+
+	listptr = other.head;
+	head = nullptr;
+
+	while (listptr)
+	{
+		appendNode(listptr->value);
+		listptr = listptr->next;
+	}
+}
+
+void NumberList::operator= (const NumberList& list)
+{
+	ListNode* tempNode;
+	ListNode* deleteNode;
+	ListNode* listptr;
+
+	listptr = list.head;
+
+	deleteNode = this->head;
+
+
+	while (deleteNode != nullptr)
+	{
+		tempNode = deleteNode->next;
+		delete deleteNode;
+		deleteNode = tempNode;
+	}
+
+	head = nullptr;
+
+	while (listptr)
+	{
+		appendNode(listptr->value);
+		listptr = listptr->next;
+	}
+
+	tail = listptr;
+}
+
+
+

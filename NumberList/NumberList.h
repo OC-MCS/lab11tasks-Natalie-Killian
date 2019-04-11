@@ -12,13 +12,17 @@ private:
 	};
 
 	ListNode *head;            // List head pointer
+	ListNode* tail;			   // List tail pointer
 
 public:
 	// Constructor
 	NumberList()
 	{
 		head = nullptr;
+		tail = nullptr;
 	}
+	// Copy Constructor
+	NumberList(const NumberList& other);
 
 	// Destructor
 	~NumberList();
@@ -28,5 +32,7 @@ public:
 	void insertNode(int);
 	void deleteNode(int);
 	void displayList() const;
+	void operator= (const NumberList& list);
 };
+
 
